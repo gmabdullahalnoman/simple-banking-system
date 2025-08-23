@@ -19,7 +19,7 @@ public class Account {
     private double balance;
     private List<String> TransactionHistory;
     
-    public Account(String ownerName, int ownerNumber, String ownerAddress){
+    public Account(String ownerName, String ownerAddress, int ownerNumber){
         this.ownerName = ownerName;
         this.ownerNumber = ownerNumber;
         this.ownerAddress = ownerAddress;
@@ -29,10 +29,14 @@ public class Account {
         this.TransactionHistory.add("Account created with $ " + this.balance + "/-");
         
     }
-
-    Account(String ownerName, String ownerAddress, int ownerNumber) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    public Account(String ownerName, int ownerNumber, String ownerAddress, String AccNumber, double balance, List<String> history) {
+        this.ownerName = ownerName;
+        this.ownerNumber = ownerNumber;
+        this.ownerAddress = ownerAddress;
+        this.AccNumber = AccNumber;
+        this.balance = balance;
+        this.TransactionHistory = history;
+    }   
 
     public String getOwnerName(){
         return ownerName;
@@ -51,6 +55,9 @@ public class Account {
     }
     public List<String> getTransactionHistory(){
         return TransactionHistory;
+    }
+    public void setBalance(double balance){
+        this.balance = balance;
     }
     public void addTransaction(String Transaction){
         this.TransactionHistory.add(Transaction);
