@@ -43,16 +43,20 @@ public class BankingApp {
                     createAccount(input);
                     break;
                 case "2" :
-                    System.out.println("Make Deposit");
+                    //System.out.println("Make Deposit");
+                    deposit(input);
                     break;
                     case "3" :
-                    System.out.println("Make withdrow");
+                    //System.out.println("Make withdrow");
+                    withdraw(input);
                     break;
                     case "4" :
-                    System.out.println("Check balance");
+                    //System.out.println("Check balance");
+                    checkBalance(input);
                     break;
                     case "5" :
-                    System.out.println("Transfer fund");
+                    //System.out.println("Transfer fund");
+                    transfer(input);
                     break;
                     case "6" :
                     isRunning = false;
@@ -65,7 +69,7 @@ public class BankingApp {
         input.close();
     }
     static void createAccount(Scanner input){
-        System.out.println("\n--- Create a New Account ---");
+        System.out.println("\n----- Create a New Account -----");
         System.out.print("Enter owner's name: ");
         String ownerName = input.nextLine();
         
@@ -82,5 +86,64 @@ public class BankingApp {
         System.out.println("Account Owner: " + newAccount.getOwnerName());
         System.out.println("Current Balance: $" + newAccount.getBalance());
         System.out.println("You can check this account in the 'Check Balance' option.");
+        
+        accountsDatabase.add(newAccount);
+    }
+    public static void deposit(Scanner input){
+        System.out.println("\n----- Make a Deposit -----");
+        System.out.println("Enter account number: ");
+        String accNumber = input.nextLine();
+        
+        Account account = findAccount(accNumber);
+        
+        if(account != null){
+            System.out.println("Enter amount to deposit: $");
+            double amount = input.nextDouble();
+            input.nextLine();
+            
+            if(amount > 0){
+                account.setBalance(account.getBalance() + amount);
+                account.addTransaction("Deposited $" + amount);
+                System.out.println("Successfully $"+amount+" deposited to account "+account.getAccNumber());
+            }
+            else{
+                System.out.println("Invalid,Enter positive number and try again");
+            }
+            
+        } 
+        else {
+            System.out.println("Account not found");
+        }
+    }
+    private static Account findAccount(String accNumber){
+        for (Account account : accountsDatabase) {
+            if(account.getAccNumber().equals(accNumber)){
+                return account;
+            }
+        }
+        return null;
+    }
+    public static void withdraw(Scanner input){
+        System.out.println("\n----- Make a Withdrawal -----");
+        System.out.println("Enter account number: ");
+        String accNumber = input.nextLine();
+        
+        Account account = findAccount(accNumber);
+        
+        
+    }
+    public static void checkBalance(Scanner input){
+        System.out.println("\n----- Check Balance -----");
+        System.out.println("Enter account number: ");
+        String accNumber = input.nextLine();
+        
+        Account account = findAccount(accNumber);
+    }
+    public static void transfer(Scanner input){
+        System.out.println("\n----- Transfer Funds -----");
+        System.out.println("Enter account number: ");
+        String accNumber = input.nextLine();
+        
+        Account account = findAccount(accNumber);
     }
 }
