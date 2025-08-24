@@ -174,9 +174,37 @@ public class BankingApp {
     }
     public static void transfer(Scanner input){
         System.out.println("\n----- Transfer Funds -----");
-        System.out.println("Enter account number: ");
-        String accNumber = input.nextLine();
         
-        Account account = findAccount(accNumber);
+        System.out.println("Enter your account number: ");
+        String fromAccNumber = input.nextLine();
+        
+        System.out.println("Enter recipient account number: ");
+        String toAccNumber = input.nextLine();
+        
+        Account fromAccount = findAccount(fromAccNumber);
+        Account toAccount = findAccount(toAccNumber);
+        
+        if(fromAccount != null && toAccount != null){
+            System.out.println("Enter amount to transfer: $");
+            
+            double amount = input.nextDouble();
+            
+            if(amount > 0){
+                fromAccount.setBalance(fromAccount.getBalance()- amount);
+                toAccount.setBalance(toAccount.getBalance()+ amount);
+                
+                fromAccount.addTransaction("Transferred $"+amount + " to " + toAccount.getAccNumber()  );
+                toAccount.addTransaction("Received $"+amount+" from "+ fromAccount.getAccNumber());
+                
+                System.out.println("Successfully transferred funds");
+        }else{
+                System.out.println("Insufficient funds, Transaction failed");
+            }
+        }
+        else{
+            System.out.println("Sender or Recipient not found,please check accunts again!");
+        }
+        
+        
     }
 }
