@@ -130,6 +130,24 @@ public class BankingApp {
         
         Account account = findAccount(accNumber);
         
+        if (account != null){
+            System.out.println("Enter amount to withdraw");
+            double amount = input.nextDouble();
+            input.nextLine();
+            
+            if(amount > 0){
+                account.setBalance(account.getBalance() - amount);
+                account.addTransaction("Withdrew $"+amount);
+                System.out.println("Successfully $" +amount+ "withdrawn from "+ account.getAccNumber());
+                
+            }
+            else{
+                System.out.println("Insufficient fund | Withdrawal failed");
+            }
+            
+        } else {
+            System.out.println("Account not found");
+        }
         
     }
     public static void checkBalance(Scanner input){
@@ -138,6 +156,21 @@ public class BankingApp {
         String accNumber = input.nextLine();
         
         Account account = findAccount(accNumber);
+        
+        if(account != null){
+            System.out.println("Details of "+accNumber+" :");
+            System.out.println("Owner: "+account.getOwnerName());
+            System.out.println("Current balance: $"+account.getBalance());
+            System.out.println("\n----- Transaction History -----");
+            
+            for (String transaction : account.getTransactionHistory()){
+                System.out.println("==> "+ transaction);
+            }
+        }
+        else{
+            System.out.println("Account not founds");
+        }
+        
     }
     public static void transfer(Scanner input){
         System.out.println("\n----- Transfer Funds -----");
