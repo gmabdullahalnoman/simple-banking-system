@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.bankingapp;
-import java.util.UUID;
+//import java.util.UUID;
 import java.util.ArrayList;
 import java.util.List;
 /**
@@ -19,17 +19,17 @@ public class Account {
     private double balance;
     private List<String> TransactionHistory;
     
-    public Account(String ownerName, String ownerAddress, int ownerNumber){
+    public Account(String ownerName, String ownerAddress, int ownerNumber, String newAccNumber){
         this.ownerName = ownerName;
         this.ownerNumber = ownerNumber;
         this.ownerAddress = ownerAddress;
-        this.AccNumber = UUID.randomUUID().toString();
+        this.AccNumber = AccNumber;
         this.balance = 0.0;
         this.TransactionHistory = new ArrayList<>();
         this.TransactionHistory.add("Account created with $ " + this.balance + "/-");
         
     }
-    public Account(String ownerName, int ownerNumber, String ownerAddress, String AccNumber, double balance, List<String> history) {
+    public Account(String ownerName, String ownerAddress, int ownerNumber, String AccNumber, List<String> history) {
         this.ownerName = ownerName;
         this.ownerNumber = ownerNumber;
         this.ownerAddress = ownerAddress;

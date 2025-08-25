@@ -12,62 +12,68 @@ import java.util.Scanner;
  */
 public class BankingApp {
 
-    private static List<Account> accountsDatabase = new ArrayList<>();
+    private static final List<Account> accountsDatabase = new ArrayList<>();
     
     public static void main(String[] args) {
         
-    Scanner input = new Scanner(System.in);
-        
-    boolean isRunning = true;
-    
-        
-    while (isRunning){
-        
-        System.out.println("***************************************");
-        System.out.println("Welcome to Simple Bank System");
-        System.out.println("***************************************");
-        System.out.println("1. Create a New Account");
-        System.out.println("2. Make a deposit");
-        System.out.println("3. Make a Withdrow");
-        System.out.println("4. Check balance");
-        System.out.println("5. Transfer money");
-        System.out.println("6. Exit application");
-        System.out.println("***************************************");
-        System.out.println("Enter your choice (1-6): ");
-        
-            String choice = input.nextLine();
+        try (Scanner input = new Scanner(System.in)) {
+            boolean isRunning = true;
             
-            switch (choice) {
-                case "1":
-                    //System.out.println("Create new account");
-                    createAccount(input);
-                    break;
-                case "2" :
-                    //System.out.println("Make Deposit");
-                    deposit(input);
-                    break;
-                    case "3" :
-                    //System.out.println("Make withdrow");
-                    withdraw(input);
-                    break;
-                    case "4" :
-                    //System.out.println("Check balance");
-                    checkBalance(input);
-                    break;
-                    case "5" :
-                    //System.out.println("Transfer fund");
-                    transfer(input);
-                    break;
-                    case "6" :
-                    isRunning = false;
-                    break;
-                default:
-                    
-                    System.out.println("Wrong entry");
+            
+            while (isRunning){
+                
+                System.out.println("***************************************");
+                System.out.println("Welcome to Simple Bank System");
+                System.out.println("***************************************");
+                System.out.println("1. Create a New Account");
+                System.out.println("2. Make a deposit");
+                System.out.println("3. Make a Withdrow");
+                System.out.println("4. Check balance");
+                System.out.println("5. Transfer money");
+                System.out.println("6. Exit application");
+                System.out.println("***************************************");
+                System.out.println("Enter your choice (1-6): ");
+                
+                String choice = input.nextLine();
+                
+                switch (choice) {
+                    case "1" -> //System.out.println("Create new account");
+                        createAccount(input);
+                    case "2" -> //System.out.println("Make Deposit");
+                        deposit(input);
+                    case "3" -> //System.out.println("Make withdrow");
+                        withdraw(input);
+                    case "4" -> //System.out.println("Check balance");
+                        checkBalance(input);
+                    case "5" -> //System.out.println("Transfer fund");
+                        transfer(input);
+                    case "6" -> isRunning = false;
+                    default -> System.out.println("Wrong entry");
+                }
             }
-        }
         input.close();
+        }
     }
+    
+    private static String generateUniqueAccNumber(){
+        
+        long nextAccNumber = 1000000001L;
+        long maxAccNumber = 0;
+        if(!accountsDatabase.isEmpty()){
+            for(Account account : accountsDatabase){
+                long accNum = Long.parseLong(account.getAccNumber());
+                
+                if (accNum>maxAccNumber){
+                    maxAccNumber = accNum;
+                }
+            }
+            
+            nextAccNumber = maxAccNumber + 1;
+            
+        }
+        return String.valueOf(nextAccNumber);
+    }
+    
     static void createAccount(Scanner input){
         System.out.println("\n----- Create a New Account -----");
         System.out.print("Enter owner's name: ");
@@ -79,7 +85,9 @@ public class BankingApp {
         System.out.println("Enter owner's number: ");
         int ownerNumber = input.nextInt();
         
-        Account newAccount = new Account(ownerName, ownerAddress, ownerNumber);
+        String newAccNumber = generateUniqueAccNumber();
+        
+        Account newAccount = new Account(ownerName, ownerAddress, ownerNumber,newAccNumber);
         
         System.out.println("\nSuccess! New account created.");
         System.out.println("Account Number: " + newAccount.getAccNumber());
