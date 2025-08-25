@@ -83,7 +83,7 @@ public class BankingApp {
         String ownerAddress = input.nextLine();
         
         System.out.println("Enter owner's number: ");
-        int ownerNumber = input.nextInt();
+        String ownerNumber = input.nextLine();
         
         String newAccNumber = generateUniqueAccNumber();
         
@@ -143,7 +143,7 @@ public class BankingApp {
             double amount = input.nextDouble();
             input.nextLine();
             
-            if(amount > 0){
+            if(amount > 0 && account.getBalance() > amount){
                 account.setBalance(account.getBalance() - amount);
                 account.addTransaction("Withdrew $"+amount);
                 System.out.println("Successfully $" +amount+ "withdrawn from "+ account.getAccNumber());
@@ -188,6 +188,7 @@ public class BankingApp {
         
         System.out.println("Enter recipient account number: ");
         String toAccNumber = input.nextLine();
+        input.nextLine();
         
         Account fromAccount = findAccount(fromAccNumber);
         Account toAccount = findAccount(toAccNumber);
@@ -197,7 +198,7 @@ public class BankingApp {
             
             double amount = input.nextDouble();
             
-            if(amount > 0){
+            if(fromAccount.getBalance() >= amount && amount > 0){
                 fromAccount.setBalance(fromAccount.getBalance()- amount);
                 toAccount.setBalance(toAccount.getBalance()+ amount);
                 
@@ -205,7 +206,7 @@ public class BankingApp {
                 toAccount.addTransaction("Received $"+amount+" from "+ fromAccount.getAccNumber());
                 
                 System.out.println("Successfully transferred funds");
-        }else{
+            }else{
                 System.out.println("Insufficient funds, Transaction failed");
             }
         }

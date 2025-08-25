@@ -13,23 +13,23 @@ import java.util.List;
 public class Account {
     
     private String ownerName;
-    private int ownerNumber;
+    private String ownerNumber;
     private String ownerAddress;
     private String AccNumber;
     private double balance;
     private List<String> TransactionHistory;
     
-    public Account(String ownerName, String ownerAddress, int ownerNumber, String newAccNumber){
+    public Account(String ownerName, String ownerAddress, String ownerNumber, String newAccNumber){
         this.ownerName = ownerName;
         this.ownerNumber = ownerNumber;
         this.ownerAddress = ownerAddress;
-        this.AccNumber = AccNumber;
+        this.AccNumber = newAccNumber;
         this.balance = 0.0;
         this.TransactionHistory = new ArrayList<>();
         this.TransactionHistory.add("Account created with $ " + this.balance + "/-");
         
     }
-    public Account(String ownerName, String ownerAddress, int ownerNumber, String AccNumber, List<String> history) {
+    public Account(String ownerName, String ownerAddress, String ownerNumber, String AccNumber, List<String> history) {
         this.ownerName = ownerName;
         this.ownerNumber = ownerNumber;
         this.ownerAddress = ownerAddress;
@@ -41,7 +41,7 @@ public class Account {
     public String getOwnerName(){
         return ownerName;
     }
-    public int getOwnerNumber(){
+    public String getOwnerNumber(){
         return ownerNumber;
     }
     public String getOwnerAdress(){
